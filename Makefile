@@ -18,7 +18,7 @@ init: init-users ## Activation of API, creation of service account with roles
 
 build: build-pusher ## Build all Cloud Run Image
 
-deploy: deploy-receiver deploy-cleaner deploy-merger deploy-packager deploy-loader ## Deploy Cloud Run Image by using the last built image
+deploy: deploy-pusher ## Deploy Cloud Run Image by using the last built image
 
 init-users: ## Create Cloud Run needed users
 	@TMP_PROJECT=$(shell gcloud config list --format 'value(core.project)'); \
