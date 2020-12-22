@@ -35,7 +35,7 @@ def main():
 
     storers = [gcs_storer]
     adapter = BigQueryAdaptor(connection=bigquery_db, project_id=project_id)
-    adapter_dict = {'.': adapter, 'SLTNPL.': adapter}
+    adapter_dict = {'.': adapter, 'NPL.': adapter}
     pusher = Pusher(storers=storers, adaptor_dict=adapter_dict)
 
     if pusher.push_data(data_header, data_body):
