@@ -51,7 +51,10 @@ deploy-pusher: ## Deploy a pusher from last built image
     	--service-account cloud-run-agent-pusher@$${PROJECT_ID}.iam.gserviceaccount.com \
 		--region $${CLOUD_RUN_REGION} \
 		--platform $${CLOUD_RUN_PLATFORM} \
-		--no-allow-unauthenticated; \
+		--no-allow-unauthenticated \
+		--max-instances 1 \
+		--concurrency 1 \
+		--memory 512Mi; \
 	gcloud run services add-iam-policy-binding agent-pusher-$${PUSHER_ID} \
 		--member=serviceAccount:cloud-run-pubsub-invoker@$${PROJECT_ID}.iam.gserviceaccount.com \
 		--role=roles/run.invoker \
