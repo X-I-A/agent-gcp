@@ -5,9 +5,10 @@ import gzip
 import hashlib
 from flask import Flask, request, Response, render_template
 import google.auth
+from google.cloud import pubsub_v1
 from google.cloud import bigquery
-from xialib_gcp import BigQueryAdaptor, GCSStorer
-from pyagent import Pusher
+from xialib_gcp import BigQueryAdaptor, GCSStorer, PubsubPublisher
+from pyagent import Agent, Pusher
 
 
 app = Flask(__name__)
@@ -15,7 +16,9 @@ app = Flask(__name__)
 project_id = google.auth.default()[1]
 bigquery_db = bigquery.Client()
 gcs_storer = GCSStorer()
-
+Agent.set_internal_channel(messager=PubsubPublisher(pub_client=pubsub_v1.PublisherClient()),
+                             channel=project_id,
+                             topic_cockpit='insight-cockpit')
 
 @app.route('/', methods=['GET', 'POST'])
 def main():

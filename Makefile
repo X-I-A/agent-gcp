@@ -34,6 +34,9 @@ init-users: ## Create Cloud Run needed users
 		--role=roles/bigquery.admin; \
 	gcloud projects add-iam-policy-binding $${PROJECT_ID} \
 		--member=serviceAccount:cloud-run-agent-pusher@$${PROJECT_ID}.iam.gserviceaccount.com \
+		--role=roles/pubsub.publisher; \
+	gcloud projects add-iam-policy-binding $${PROJECT_ID} \
+		--member=serviceAccount:cloud-run-agent-pusher@$${PROJECT_ID}.iam.gserviceaccount.com \
 		--role=roles/datastore.user; \
 
 build-pusher: ## Build receiver and upload Cloud Run Image
